@@ -1,0 +1,31 @@
+﻿<Window x:Class="WhatToRead.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vms="clr-namespace:WhatToRead.WPF.ViewModel"
+        xmlns:local="clr-namespace:WhatToRead.WPF" 
+        xmlns:views="clr-namespace:WhatToRead.WPF.Views" 
+        xmlns:modalcontrol="clr-namespace:ModalControl;assembly=ModalControl"
+        mc:Ignorable="d"
+        Title="WhatToRad" Height="450" Width="1000">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vms:AddBookViewModel}">
+            <views:AddBookView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vms:EditBookViewModel}">
+            <views:EditBookView/>
+        </DataTemplate>
+    </Window.Resources>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <Grid>
+            <modalcontrol:Modal Panel.ZIndex="1" IsOpen="{Binding IsModalOpen}">
+                <ContentControl Margin="50 25" Content="{Binding CurrentViewModel}"/>
+            </modalcontrol:Modal>
+
+            <views:BooksView
+                Margin="20"
+                DataContext="{Binding BookViewModel}"/>
+        </Grid>
+    </ScrollViewer>
+</Window>

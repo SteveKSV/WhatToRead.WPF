@@ -1,0 +1,103 @@
+﻿<UserControl x:Class="WhatToRead.WPF.Components.BookDetailsForm"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WhatToRead.WPF.Components" xmlns:loadingspinnercontrol="clr-namespace:LoadingSpinnerControl;assembly=LoadingSpinnerControl"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0" Grid.IsSharedSizeScope="True">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Margin="0 10 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" SharedSizeGroup="Label"></ColumnDefinition>
+                    <ColumnDefinition Width="*" MaxWidth="250"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" FontWeight="Bold" Text="Title"></TextBlock>
+                <TextBox Grid.Column="1" Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="10 0 0 0"></TextBox>
+            </Grid>
+
+            <Grid Grid.Row="1" Margin="0 10 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" SharedSizeGroup="Label"></ColumnDefinition>
+                    <ColumnDefinition Width="*" MaxWidth="250"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" FontWeight="Bold" Text="Author"></TextBlock>
+                <TextBox Grid.Column="1" Text="{Binding Author, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="10 0 0 0"></TextBox>
+            </Grid>
+
+            <Grid Grid.Row="2" Margin="0 10 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" SharedSizeGroup="Label"></ColumnDefinition>
+                    <ColumnDefinition Width="*" MaxWidth="250"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" FontWeight="Bold" Text="Pages"></TextBlock>
+                <TextBox Grid.Column="1" Text="{Binding Pages, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="10 0 0 0"></TextBox>
+            </Grid>
+
+            <Grid Grid.Row="3" Margin="0 10 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" SharedSizeGroup="Label"></ColumnDefinition>
+                    <ColumnDefinition Width="*" MaxWidth="250"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" FontWeight="Bold" Text="Language"></TextBlock>
+                <TextBox Grid.Column="1" Text="{Binding Language, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="10 0 0 0"></TextBox>
+            </Grid>
+            
+            <Grid Grid.Row="4" Margin="0 10 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" SharedSizeGroup="Label"></ColumnDefinition>
+                    <ColumnDefinition Width="*" MaxWidth="250"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" FontWeight="Bold" Text="Publisher: "></TextBlock>
+                <TextBox Grid.Column="1" Text="{Binding Publisher, UpdateSourceTrigger=PropertyChanged}" Margin="10 0 0 0"></TextBox>
+            </Grid>
+
+        </Grid>
+
+        <WrapPanel Grid.Row="1" Margin="0 30 0 0">
+            <Button Content="Submit"
+                    Command="{Binding SubmitCommand}"
+                    IsEnabled="{Binding CanSubmit}"
+                    Margin="0 0 10 0"/>
+            <Button Content="Cancel"
+                    Command="{Binding CancelCommand}" 
+                    Style="{StaticResource ButtonSecondary}"
+                    Margin="0 0 5 0"/>
+            <loadingspinnercontrol:LoadingSpinner 
+                IsLoading="{Binding IsSubmitting}"
+                Diameter="25"
+                Thickness="2"/>
+        </WrapPanel>
+
+        <TextBlock
+            Grid.Row="3"
+            Margin="0 15 0 0"
+            Style="{StaticResource ErrorMessage}"
+            Text="{Binding ErrorMessage}"
+            Visibility="{Binding HasErrorMessage, Converter={StaticResource BooleanToVisibilityConverter}}"
+            />
+    </Grid>
+</UserControl>
